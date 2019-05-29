@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import com.girish.newsapp.utils.Constants
 import javax.inject.Inject
 
 /**
@@ -15,6 +16,6 @@ abstract class NewsDatabase : RoomDatabase() {
     abstract fun favoriteShowsDao(): FavoriteShowsDao
 
     companion object {
-        val DATABASE_NAME = "news.db"
+        val DATABASE_NAME = Constants.DATABASE_NAME
     }
 }

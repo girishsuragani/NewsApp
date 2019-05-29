@@ -1,6 +1,7 @@
 package com.girish.newsapp.data.db
 
 import android.arch.persistence.room.*
+import com.girish.newsapp.utils.Constants
 import io.reactivex.Single
 
 /**
@@ -8,7 +9,7 @@ import io.reactivex.Single
  */
 @Dao
 interface FavoriteShowsDao {
-    @Query("SELECT * FROM table_favshows")
+    @Query("SELECT * FROM "+ Constants.FAVNEWS_TABLE)
     fun getallFavouriteShows() : Single<List<FavoriteShows>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -17,7 +18,7 @@ interface FavoriteShowsDao {
     @Delete
     fun remove(favoriteShow: FavoriteShows)
 
-    @Query("DELETE FROM table_favshows" )
+    @Query("DELETE FROM "+ Constants.FAVNEWS_TABLE )
     fun clearFavs()
 
 

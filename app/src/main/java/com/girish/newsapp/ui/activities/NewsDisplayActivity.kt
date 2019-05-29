@@ -78,10 +78,6 @@ class NewsDisplayActivity: DaggerAppCompatActivity() {
         viewModel.getNews("us")
     }
 
-
-
-
-
 }
 
 
