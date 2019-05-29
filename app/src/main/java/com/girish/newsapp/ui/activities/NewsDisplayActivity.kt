@@ -32,17 +32,16 @@ class NewsDisplayActivity: DaggerAppCompatActivity() {
 
     lateinit var viewModel: NewsDisplayViewModel
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var adapter: NewsListAdapter
 
-    var newsarticles: List<NewsArticle> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        linearLayoutManager = LinearLayoutManager(this)
-        rv_news.layoutManager = linearLayoutManager
+        initViews()
         initViewModel()
+        fetchData()
 
 
         button.setOnClickListener(View.OnClickListener {
@@ -53,23 +52,33 @@ class NewsDisplayActivity: DaggerAppCompatActivity() {
 
     }
 
+    private fun initViews() {
+        adapter = NewsListAdapter { position, newsArticle ->
+            newsArticle?.let {
+                viewModel.setAsFavourite(newsArticle)
+            }
+        }
+        rv_news.layoutManager = LinearLayoutManager(this)
+        rv_news.adapter = adapter
+    }
+
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[NewsDisplayViewModel::class.java]
-        viewModel.newsList.observe(this, Observer { it?.let { setNewsList(it) } })
+        viewModel.newsList.observe(this, Observer {
+            it?.let {
+                if (::adapter.isInitialized) {
+                    adapter.setData(it.articles)
+                }
+            }
+        })
+    }
+
+
+    private fun fetchData() {
         viewModel.getNews("us")
     }
 
 
-    private fun setNewsList(newsList: NewsList) {
-       // Log.d("Articles", "hiii" + newsList.toString())
-        newsarticles = newsList.articles
-        rv_news.adapter = NewsListAdapter(newsarticles) { position, newsArticle ->
-            if (newsArticle != null) {
-                viewModel.setAsFavourite(newsArticle)
-            }
-        }
-
-    }
 
 
 

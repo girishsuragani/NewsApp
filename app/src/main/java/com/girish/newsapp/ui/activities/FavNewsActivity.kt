@@ -28,34 +28,43 @@ class FavNewsActivity: DaggerAppCompatActivity() {
 
     lateinit var viewModel: FavNewsViewModel
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var adapter: FavNewsAdapter
 
-    var favnewsarticles: List<NewsArticle> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_favnews)
-        linearLayoutManager = LinearLayoutManager(this)
-        rv_favnews.layoutManager = linearLayoutManager
+        initViews()
         initViewModel()
+        getBookmarks()
+
 
     }
 
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[FavNewsViewModel::class.java]
-        viewModel.favnewsList.observe(this, Observer { it?.let { setFavNewsList(it) } })
+        viewModel.favnewsList.observe(this, Observer {
+            it?.let {
+            if (::adapter.isInitialized) {
+            adapter.setData(it)
+              }
+            }
+        })
+    }
+
+    private fun initViews() {
+        adapter = FavNewsAdapter()
+        rv_favnews.layoutManager = LinearLayoutManager(this)
+        rv_favnews.adapter = adapter
+    }
+
+
+    private fun getBookmarks() {
         viewModel.getFavNews()
     }
-
-
-    private fun setFavNewsList(newsList: List<NewsArticle>) {
-        // Log.d("Articles", "hiii" + newsList.toString())
-        favnewsarticles = newsList
-        rv_favnews.adapter = FavNewsAdapter(favnewsarticles)
-
-    }
-
 
 
 }
