@@ -13,7 +13,7 @@ import javax.inject.Singleton
  * Created by Girish on 24/05/19.
  */
 @Singleton
-@Component(modules = arrayOf(AppModule::class,ViewModelModule::class, ActivityBindingModule::class, AndroidSupportInjectionModule::class))
+@Component(modules = arrayOf(AppModule::class,ViewModelModule::class, ActivityBindingModule::class, AndroidSupportInjectionModule::class, NewsDatabaseModule::class))
 interface AppComponent : AndroidInjector<NewsApplication>{
 
      fun inject(activity: NewsDisplayActivity)

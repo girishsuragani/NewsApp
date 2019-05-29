@@ -1,5 +1,6 @@
 package com.girish.newsapp.di
 
+import com.girish.newsapp.ui.activities.FavNewsActivity
 import com.girish.newsapp.ui.activities.NewsDisplayActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -12,4 +13,7 @@ abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector
     abstract fun bindActivity(): NewsDisplayActivity
+
+    @ContributesAndroidInjector
+    abstract fun bindFavNewsActivity(): FavNewsActivity
 }

@@ -6,10 +6,13 @@ package com.girish.newsapp.ui.activities
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.View
+import android.widget.Button
 
 import com.girish.newsapp.R
 import com.girish.newsapp.domain.model.NewsArticle
@@ -41,6 +44,13 @@ class NewsDisplayActivity: DaggerAppCompatActivity() {
         rv_news.layoutManager = linearLayoutManager
         initViewModel()
 
+
+        button.setOnClickListener(View.OnClickListener {
+            val Intent = Intent(this,FavNewsActivity::class.java)
+            startActivity(Intent)
+
+        })
+
     }
 
     private fun initViewModel() {
@@ -51,12 +61,15 @@ class NewsDisplayActivity: DaggerAppCompatActivity() {
 
 
     private fun setNewsList(newsList: NewsList) {
-        Log.d("Articles", "hiii" + newsList.toString())
+       // Log.d("Articles", "hiii" + newsList.toString())
         newsarticles = newsList.articles
-        rv_news.adapter = NewsListAdapter(newsarticles)
+        rv_news.adapter = NewsListAdapter(newsarticles) { position, newsArticle ->
+            if (newsArticle != null) {
+                viewModel.setAsFavourite(newsArticle)
+            }
+        }
 
     }
-
 
 
 

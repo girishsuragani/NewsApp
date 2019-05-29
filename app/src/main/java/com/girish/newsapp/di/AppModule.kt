@@ -1,8 +1,7 @@
 package com.girish.newsapp.di
 
+import android.app.Application
 import android.content.Context
-import com.girish.newsapp.NewsApplication
-import com.girish.newsapp.data.di.DataModule
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,6 +12,11 @@ import javax.inject.Singleton
 @Module(includes = arrayOf(DataModule::class))
 class AppModule {
 
+    @Provides
+    @Singleton
+    fun provideContext(application: Application): Context {
+        return application
+    }
 
 
 

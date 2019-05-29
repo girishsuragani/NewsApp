@@ -15,7 +15,7 @@ class NewsApplication: DaggerApplication() {
                 .application(this)
                 .appModule(AppModule())
                 .build()
-        appComponent.inject(this)
+        //appComponent.inject(this)
         return appComponent
     }
 
