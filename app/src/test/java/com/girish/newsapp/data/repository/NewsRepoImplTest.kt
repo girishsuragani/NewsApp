@@ -67,7 +67,7 @@ class NewsRepoImplTest{
                 .assertComplete()
                 .assertNoErrors()
                 .assertValueCount(1)
-                .assertResult(newsArticleList)
+                .assertResult(newsList)
         Mockito.verify(newsService, Mockito.times(1)).getTopHeadlines(ArgumentMatchers.anyString(),ArgumentMatchers.anyString())
 
 

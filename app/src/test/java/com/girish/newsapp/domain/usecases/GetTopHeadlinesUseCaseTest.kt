@@ -56,12 +56,12 @@ class GetTopHeadlinesUseCaseTest{
     @Test
     fun `execute is success`()
     {
-      `when`(newsRepository.getTopHeadlines(ArgumentMatchers.anyString())).thenReturn(Single.just(newsarticlelist))
+      `when`(newsRepository.getTopHeadlines(ArgumentMatchers.anyString())).thenReturn(Single.just(newsList))
         getTopHeadlinesUseCase.execute(country).test()
                 .assertSubscribed()
                 .assertComplete()
                 .assertNoErrors()
-                .assertValue(newsarticlelist)
+                .assertValue(newsList)
         verify(newsRepository, times(1)).getTopHeadlines(ArgumentMatchers.anyString())
 
     }

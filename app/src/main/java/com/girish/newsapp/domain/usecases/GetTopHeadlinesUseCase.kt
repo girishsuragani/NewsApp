@@ -7,15 +7,12 @@ import com.girish.newsapp.domain.usecases.base.SingleUseCaseWIthParam
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetTopHeadlinesUseCase @Inject constructor( val newsRepository: NewsRepository):  SingleUseCaseWIthParam<String, List<NewsArticle>?>{
+class GetTopHeadlinesUseCase @Inject constructor( val newsRepository: NewsRepository):  SingleUseCaseWIthParam<String, NewsList?>{
 
 
-    override fun execute(parameter: String): Single<List<NewsArticle>?> {
+    override fun execute(parameter: String): Single<NewsList?> {
 
         return newsRepository.getTopHeadlines(parameter)
-
-
-
 
     }
 
