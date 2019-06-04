@@ -1,10 +1,10 @@
-package com.girish.newsapp
+package com.girish.newsapp.ui.activities
 
-import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.girish.newsapp.R
 
-class MainActivity: AppCompatActivity() {
+class NewsDisplayActivity: AppCompatActivity() {
 
 
      override fun onCreate(savedInstanceState: Bundle?) {
